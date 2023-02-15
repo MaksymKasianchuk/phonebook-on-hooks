@@ -1,13 +1,16 @@
-import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { nanoid } from 'nanoid';
 import { Formik, Field } from 'formik';
 import { PhoneBookFormStyled, FormGroup, ErrorMessageStyled, FormButton } from './PhoneBook.styled';
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 
-export const PhoneBookForm = ({ submitHandler }) => {
-
+export const PhoneBookForm = () => {
+    const dispatch = useDispatch();
     const nameId = nanoid(); 
     const phoneId = nanoid(); 
+    const contacts = useSelector(getContacts);
 
     let schema = yup.object().shape({
         name: yup.string().matches(
@@ -30,7 +33,14 @@ export const PhoneBookForm = ({ submitHandler }) => {
     };
 
     const handleSubmit = (values, actions) => {
-        submitHandler(values);
+        const { name, phone } = values;
+        
+        if(contacts.find(contact => contact.name === name)){
+          alert(`${name} already in contacts!`);
+          return ;
+        };
+        dispatch(addContact({ name, phone }));
+
         actions.resetForm();
     };
 
@@ -59,8 +69,4 @@ export const PhoneBookForm = ({ submitHandler }) => {
             </PhoneBookFormStyled>
         </Formik>
     )
-};
-
-PhoneBookForm.propTypes = {
-    submitHandler: PropTypes.func.isRequired
 };
