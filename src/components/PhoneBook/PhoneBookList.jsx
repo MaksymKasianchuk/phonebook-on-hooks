@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from "react-redux";
-import { deleteContact } from 'redux/contactsSlice';
 import { PhoneBookListStyled, PhoneBookListEmpty, ListButton } from './PhoneBook.styled';
+import { useDeleteContactMutation } from 'redux/contactsApi';
 
 export const PhoneBookList = ({ contacts }) => {
-    const dispatch = useDispatch();
+    const [ deleteContact ] = useDeleteContactMutation();
 
+    const handleDeleteContact = async (id) => {
+        try {
+            await deleteContact(id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return(
         <>
             { contacts.length > 0 ? (
@@ -14,7 +20,7 @@ export const PhoneBookList = ({ contacts }) => {
                         contacts.map( ( {name, phone, id}) => (
                             <li key={id}>
                                 <p><span>{name}:</span> {phone}</p> 
-                                <ListButton type='button' onClick={() => dispatch(deleteContact(id))}>delete</ListButton>
+                                <ListButton type='button' onClick={() => handleDeleteContact(id)}>delete</ListButton>
                             </li>
                         ))
                     }
@@ -28,6 +34,7 @@ export const PhoneBookList = ({ contacts }) => {
 
 PhoneBookList.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.exact({
+        createdAt: PropTypes.string,
         name: PropTypes.string.isRequired,
         phone: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,

@@ -2,15 +2,13 @@ import * as yup from 'yup';
 import { nanoid } from 'nanoid';
 import { Formik, Field } from 'formik';
 import { PhoneBookFormStyled, FormGroup, ErrorMessageStyled, FormButton } from './PhoneBook.styled';
-import { useDispatch, useSelector } from "react-redux";
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
 
 export const PhoneBookForm = () => {
-    const dispatch = useDispatch();
+    const {data: contacts} = useGetContactsQuery();
+    const [ addContact ] = useAddContactMutation();
     const nameId = nanoid(); 
     const phoneId = nanoid(); 
-    const contacts = useSelector(getContacts);
 
     let schema = yup.object().shape({
         name: yup.string().matches(
@@ -32,14 +30,18 @@ export const PhoneBookForm = () => {
         phone: ''
     };
 
-    const handleSubmit = (values, actions) => {
-        const { name, phone } = values;
+    const handleSubmit = async (values, actions) => {
+        const { name } = values;
         
         if(contacts.find(contact => contact.name === name)){
           alert(`${name} already in contacts!`);
           return ;
         };
-        dispatch(addContact({ name, phone }));
+        try {
+            await addContact(values);
+        } catch (error) {
+            console.log(error);
+        }
 
         actions.resetForm();
     };
