@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { PhoneBookListStyled, PhoneBookListEmpty, ListButton } from './PhoneBook.styled';
-import { useDeleteContactMutation } from 'redux/contactsApi';
+import { useDeleteContactMutation } from 'redux/contacts/contactsApi';
 
 export const PhoneBookList = ({ contacts }) => {
     const [ deleteContact ] = useDeleteContactMutation();

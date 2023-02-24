@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { nanoid } from 'nanoid';
 import { Formik, Field } from 'formik';
 import { PhoneBookFormStyled, FormGroup, ErrorMessageStyled, FormButton } from './PhoneBook.styled';
-import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
+import { useGetContactsQuery, useAddContactMutation } from 'redux/contacts/contactsApi';
 
 export const PhoneBookForm = () => {
     const {data: contacts} = useGetContactsQuery();
