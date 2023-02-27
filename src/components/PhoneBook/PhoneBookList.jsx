@@ -17,9 +17,9 @@ export const PhoneBookList = ({ contacts }) => {
             { contacts.length > 0 ? (
                  <PhoneBookListStyled>
                     {
-                        contacts.map( ( {name, phone, id}) => (
+                        contacts.map( ( {name, number, id}) => (
                             <li key={id}>
-                                <p><span>{name}:</span> {phone}</p> 
+                                <p><span>{name}:</span> {number}</p> 
                                 <ListButton type='button' onClick={() => handleDeleteContact(id)}>delete</ListButton>
                             </li>
                         ))
@@ -36,7 +36,7 @@ PhoneBookList.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.exact({
         createdAt: PropTypes.string,
         name: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
     })).isRequired,
 };

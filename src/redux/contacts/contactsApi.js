@@ -21,7 +21,7 @@ const axiosBaseQuery =
 export const contactsApi = createApi({
     reducerPath: 'contacts',
     baseQuery: axiosBaseQuery({
-      baseUrl: 'https://connections-api.herokuapp.com/',
+      baseUrl: 'https://connections-api.herokuapp.com',
     }),
     tagTypes: ['Contacts'],
     endpoints: builder => ({

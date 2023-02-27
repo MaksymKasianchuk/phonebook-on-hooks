@@ -8,7 +8,7 @@ export const PhoneBookForm = () => {
     const {data: contacts} = useGetContactsQuery();
     const [ addContact ] = useAddContactMutation();
     const nameId = nanoid(); 
-    const phoneId = nanoid(); 
+    const numberId = nanoid(); 
 
     let schema = yup.object().shape({
         name: yup.string().matches(
@@ -17,7 +17,7 @@ export const PhoneBookForm = () => {
                 message: 'Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d\'Artagnan',
                 excludeEmptyString: true 
             }).required('Required'),
-        phone: yup.string().matches(
+            number: yup.string().matches(
             /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/, 
             { 
                 message: 'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
@@ -27,7 +27,7 @@ export const PhoneBookForm = () => {
 
     const initVal = { 
         name: '',
-        phone: ''
+        number: ''
     };
 
     const handleSubmit = async (values, actions) => {
@@ -61,11 +61,11 @@ export const PhoneBookForm = () => {
                     <ErrorMessageStyled name="name" component='div'/>
                 </FormGroup>
                 <FormGroup>
-                    <label htmlFor={phoneId}>
+                    <label htmlFor={numberId}>
                         Number
-                        <Field type="tel" id={phoneId} name="phone" placeholder="Enter phone number" />
+                        <Field type="tel" id={numberId} name="number" placeholder="Enter phone number" />
                     </label>
-                    <ErrorMessageStyled name="phone" component='div'/>
+                    <ErrorMessageStyled name="number" component='div'/>
                 </FormGroup>
                 <FormButton type="submit">Add contact</FormButton>
             </PhoneBookFormStyled>

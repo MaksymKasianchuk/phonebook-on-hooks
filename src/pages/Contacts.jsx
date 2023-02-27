@@ -15,7 +15,7 @@ const Contacts = () => {
 
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
-    const filteredContacts = contacts.filter( contact => contact.name.toLowerCase().includes(normalizedFilter) || contact.phone.toLowerCase().includes(normalizedFilter));
+    const filteredContacts = contacts.filter( contact => contact.name.toLowerCase().includes(normalizedFilter) || contact.number.toLowerCase().includes(normalizedFilter));
     return filteredContacts;
   };
     
