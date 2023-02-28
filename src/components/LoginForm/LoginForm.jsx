@@ -1,7 +1,10 @@
+import * as yup from 'yup';
 import { nanoid } from 'nanoid';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/auth/operations';
+import { LoginFormStyled } from './LoginForm.styled';
+import { FormGroup, ErrorMessageStyled, FormButton } from 'components/PhoneBook/PhoneBook.styled';
 
 const LoginForm = () => {
     const emailId = nanoid(); 
@@ -14,33 +17,37 @@ const LoginForm = () => {
     };
 
     const handleSubmit = async (values, actions) => {
-        // const { name } = values;
         await dispatch(login(values));
         actions.resetForm();
     };
+    let schema = yup.object().shape({
+        email: yup.string().required('Required'),
+        password: yup.string().required('Required'),
+    });
 
     return (
         <Formik
             initialValues={initVal}
+            validationSchema={schema}
             onSubmit={handleSubmit}
         >
-            <Form>
-                <div>
+            <LoginFormStyled>
+                <FormGroup>
                     <label htmlFor={emailId}>
                         Email
                         <Field type="email" id={emailId} name="email" placeholder="mail@mail.com" />
                     </label>
-                    <ErrorMessage name="email" component='div'/>
-                </div>
-                <div>
+                    <ErrorMessageStyled name="email" component='div'/>
+                </FormGroup>
+                <FormGroup>
                     <label htmlFor={passwordId}>
                         Password
                         <Field type="text" id={passwordId} name="password" placeholder="Enter Password" />
                     </label>
-                    <ErrorMessage name="password" component='div'/>
-                </div>
-                <button type="submit">Log in</button>
-            </Form>
+                    <ErrorMessageStyled name="password" component='div'/>
+                </FormGroup>
+                <FormButton type="submit">Log in</FormButton>
+            </LoginFormStyled>
         </Formik>
     )
 };

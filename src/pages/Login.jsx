@@ -1,11 +1,14 @@
 import LoginForm from 'components/LoginForm';
+import { Container } from "components/App/App.styled";
+import Section from 'components/Section';
 
 const Login = () => {
     return(
-        <div>
-            <h1>Login page</h1>
-            <LoginForm />
-        </div>
+        <Container>
+            <Section title='Login page'>
+                <LoginForm />
+            </Section>
+        </Container>
     )
 };
 

@@ -1,13 +1,11 @@
+import { Container } from "components/App/App.styled";
+import Section from 'components/Section';
+
 const Home = () => {
   return (
-    <div>
-      <h1>
-        Phonebook welcome page{' '}
-        <span role="img" aria-label="Greeting icon">
-          😏
-        </span>
-      </h1>
-    </div>
+    <Container>
+      <Section title={" Phonebook welcome page 😏"} />
+    </Container>
   );
 };
 

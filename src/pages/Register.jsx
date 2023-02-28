@@ -1,11 +1,14 @@
 import RegisterForm from 'components/RegisterForm';
+import { Container } from "components/App/App.styled";
+import Section from 'components/Section';
 
 const Register = () => {
     return(
-        <div>
-            <h1>Registeration page</h1>
-            <RegisterForm />
-        </div>
+        <Container>
+            <Section title='Registeration page'>
+                <RegisterForm />
+            </Section>
+        </Container>
     )
 };
 
